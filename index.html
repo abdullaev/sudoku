@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#4f8ef7" />
+  <title>Sudoku</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- SCREEN: Start / Difficulty Selection -->
+  <div id="screen-start" class="screen active">
+    <div class="start-content">
+      <h1 class="logo">Sudoku</h1>
+      <p class="tagline">Choose difficulty</p>
+      <div class="difficulty-buttons">
+        <button class="btn-difficulty" data-difficulty="easy">Easy</button>
+        <button class="btn-difficulty" data-difficulty="medium">Medium</button>
+        <button class="btn-difficulty" data-difficulty="hard">Hard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: Game -->
+  <div id="screen-game" class="screen">
+    <header class="game-header">
+      <div class="lives" id="lives-display">
+        <span class="heart" data-life="1">&#9829;</span>
+        <span class="heart" data-life="2">&#9829;</span>
+        <span class="heart" data-life="3">&#9829;</span>
+      </div>
+      <span class="difficulty-label" id="difficulty-label"></span>
+      <button class="btn-new" id="btn-new-game">New</button>
+    </header>
+
+    <div class="board" id="board" role="grid" aria-label="Sudoku board"></div>
+
+    <div class="numpad" id="numpad" role="group" aria-label="Number input"></div>
+  </div>
+
+  <!-- SCREEN: Game Over -->
+  <div id="screen-gameover" class="screen">
+    <div class="overlay-card">
+      <p class="overlay-icon fail">&#10007;</p>
+      <h2>Game Over</h2>
+      <p class="overlay-sub">3 mistakes — better luck next time</p>
+      <button class="btn-primary" id="btn-retry">Play Again</button>
+      <button class="btn-secondary" id="btn-retry-menu">Change Difficulty</button>
+    </div>
+  </div>
+
+  <!-- SCREEN: Victory -->
+  <div id="screen-victory" class="screen">
+    <div class="overlay-card">
+      <p class="overlay-icon win">&#10003;</p>
+      <h2>Solved!</h2>
+      <p class="overlay-sub" id="victory-time"></p>
+      <button class="btn-primary" id="btn-victory-again">Play Again</button>
+      <button class="btn-secondary" id="btn-victory-menu">Change Difficulty</button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator)
+      navigator.serviceWorker.register('/sw.js');
+  </script>
+</body>
+</html>
