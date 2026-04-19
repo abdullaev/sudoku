@@ -9,6 +9,7 @@ import {
 } from './render';
 import { showScreen } from './ui';
 import { formatTime } from './utils';
+import { startFireworks } from './fireworks';
 import type { DifficultyKey } from './types';
 
 export function selectCell(idx: number): void {
@@ -73,6 +74,7 @@ export function triggerVictory(): void {
   const elapsed = Date.now() - state.startTime;
   const el = document.getElementById('victory-time');
   if (el) el.textContent = `Solved in ${formatTime(elapsed)}`;
+  startFireworks();
   showScreen('victory');
 }
 

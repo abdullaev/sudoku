@@ -2,11 +2,13 @@ import { buildNumpad, scheduleNextHeart } from './ui';
 import { initEvents } from './events';
 import { state, loadState } from './state';
 import { renderAll, renderCell } from './render';
+import { initDebug } from './debug';
 
 document.addEventListener('DOMContentLoaded', () => {
   buildNumpad();
   initEvents();
   scheduleNextHeart();
+  initDebug();
   if (loadState()) {
     renderAll();
     for (let i = 0; i < 81; i++) {

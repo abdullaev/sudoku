@@ -1,7 +1,14 @@
+const MODAL_SCREENS = new Set(['gameover', 'victory']);
+
 export function showScreen(name: string): void {
-  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
-  const screen = document.getElementById(`screen-${name}`);
-  if (screen) screen.classList.add("active");
+  if (MODAL_SCREENS.has(name)) {
+    const screen = document.getElementById(`screen-${name}`);
+    if (screen) screen.classList.add("active");
+  } else {
+    document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+    const screen = document.getElementById(`screen-${name}`);
+    if (screen) screen.classList.add("active");
+  }
 }
 
 export function buildNumpad(): void {
