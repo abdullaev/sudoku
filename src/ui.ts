@@ -1,4 +1,4 @@
-const MODAL_SCREENS = new Set(['gameover', 'victory']);
+const MODAL_SCREENS = new Set(["gameover", "victory"]);
 
 export function showScreen(name: string): void {
   if (MODAL_SCREENS.has(name)) {
@@ -14,20 +14,6 @@ export function showScreen(name: string): void {
 export function buildNumpad(): void {
   const pad = document.getElementById("numpad");
   if (!pad) return;
-  for (let n = 1; n <= 9; n++) {
-    const btn = document.createElement("button");
-    btn.className = "numpad-btn";
-    btn.dataset.num = String(n);
-    btn.textContent = String(n);
-    btn.setAttribute("aria-label", `Enter ${n}`);
-    pad.appendChild(btn);
-  }
-  const erase = document.createElement("button");
-  erase.className = "numpad-btn erase";
-  erase.dataset.num = "0";
-  erase.textContent = "⌫";
-  erase.setAttribute("aria-label", "Erase");
-  pad.appendChild(erase);
 
   const note = document.createElement("button");
   note.className = "numpad-btn note";
@@ -36,6 +22,15 @@ export function buildNumpad(): void {
   note.setAttribute("aria-pressed", "false");
   note.textContent = "✏️";
   pad.appendChild(note);
+
+  for (let n = 1; n <= 3; n++) {
+    const btn = document.createElement("button");
+    btn.className = "numpad-btn";
+    btn.dataset.num = String(n);
+    btn.textContent = String(n);
+    btn.setAttribute("aria-label", `Enter ${n}`);
+    pad.appendChild(btn);
+  }
 
   const hint = document.createElement("button");
   hint.className = "numpad-btn hint";
@@ -49,6 +44,31 @@ export function buildNumpad(): void {
   hint.appendChild(hintIcon);
   hint.appendChild(hintCount);
   pad.appendChild(hint);
+
+  for (let n = 4; n <= 6; n++) {
+    const btn = document.createElement("button");
+    btn.className = "numpad-btn";
+    btn.dataset.num = String(n);
+    btn.textContent = String(n);
+    btn.setAttribute("aria-label", `Enter ${n}`);
+    pad.appendChild(btn);
+  }
+
+  const erase = document.createElement("button");
+  erase.className = "numpad-btn erase";
+  erase.dataset.num = "0";
+  erase.textContent = "❌";
+  erase.setAttribute("aria-label", "Erase");
+  pad.appendChild(erase);
+
+  for (let n = 7; n <= 9; n++) {
+    const btn = document.createElement("button");
+    btn.className = "numpad-btn";
+    btn.dataset.num = String(n);
+    btn.textContent = String(n);
+    btn.setAttribute("aria-label", `Enter ${n}`);
+    pad.appendChild(btn);
+  }
 }
 
 export function spawnHeart(): void {

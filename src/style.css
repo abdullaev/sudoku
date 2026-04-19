@@ -334,7 +334,7 @@ body {
 
 .numpad {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   width: var(--board-size);
   margin-top: 14px;
@@ -376,7 +376,6 @@ body {
 }
 
 .numpad-btn.hint {
-  grid-column: 5;
   font-size: calc(var(--cell-size) * 0.42);
   position: relative;
 }
@@ -399,7 +398,6 @@ body {
 /* ─── Note Mode ───────────────────────────────────────── */
 
 .numpad-btn.note {
-  grid-column: 4;
   font-size: calc(var(--cell-size) * 0.42);
 }
 
