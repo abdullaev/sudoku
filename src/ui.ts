@@ -1,0 +1,41 @@
+export function showScreen(name: string): void {
+  document.querySelectorAll(".screen").forEach((s) => s.classList.remove("active"));
+  const screen = document.getElementById(`screen-${name}`);
+  if (screen) screen.classList.add("active");
+}
+
+export function buildNumpad(): void {
+  const pad = document.getElementById("numpad");
+  if (!pad) return;
+  for (let n = 1; n <= 9; n++) {
+    const btn = document.createElement("button");
+    btn.className = "numpad-btn";
+    btn.dataset.num = String(n);
+    btn.textContent = String(n);
+    btn.setAttribute("aria-label", `Enter ${n}`);
+    pad.appendChild(btn);
+  }
+  const erase = document.createElement("button");
+  erase.className = "numpad-btn erase";
+  erase.dataset.num = "0";
+  erase.textContent = "⌫";
+  erase.setAttribute("aria-label", "Erase");
+  pad.appendChild(erase);
+}
+
+export function spawnHeart(): void {
+  const el = document.createElement("span");
+  el.className = "floating-heart";
+  el.textContent = "❤️";
+  el.style.left = `${10 + Math.random() * 80}%`;
+  document.body.appendChild(el);
+  el.addEventListener("animationend", () => el.remove());
+}
+
+export function scheduleNextHeart(): void {
+  const delay = 6000 + Math.random() * 14000;
+  setTimeout(() => {
+    spawnHeart();
+    scheduleNextHeart();
+  }, delay);
+}
