@@ -13,6 +13,7 @@ export const state: GameState = {
   gameOver:   false,
   won:        false,
   startTime:  null,
+  hints:      3,
 };
 
 export type ActiveGameState = GameState & {
@@ -37,9 +38,9 @@ function isPersistedState(v: unknown): v is PersistedState {
 }
 
 export function saveState(): void {
-  const { solution, puzzle, board, locked, errors, difficulty, lives, startTime } = state;
+  const { solution, puzzle, board, locked, errors, difficulty, lives, startTime, hints } = state;
   localStorage.setItem('sudoku_state', JSON.stringify(
-    { solution, puzzle, board, locked, errors, difficulty, lives, startTime }
+    { solution, puzzle, board, locked, errors, difficulty, lives, startTime, hints }
   ));
 }
 

@@ -32,8 +32,14 @@ export function buildNumpad(): void {
   const hint = document.createElement("button");
   hint.className = "numpad-btn hint";
   hint.dataset.hint = "1";
-  hint.textContent = "💡";
   hint.setAttribute("aria-label", "Hint");
+  const hintIcon = document.createElement("span");
+  hintIcon.textContent = "💡";
+  const hintCount = document.createElement("span");
+  hintCount.className = "hint-count";
+  hintCount.textContent = "3";
+  hint.appendChild(hintIcon);
+  hint.appendChild(hintCount);
   pad.appendChild(hint);
 }
 

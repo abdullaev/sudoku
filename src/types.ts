@@ -20,9 +20,10 @@ export interface GameState {
   gameOver: boolean;
   won: boolean;
   startTime: number | null;
+  hints: number;
 }
 
 export type PersistedState = Pick<
   GameState,
-  "solution" | "puzzle" | "board" | "locked" | "errors" | "difficulty" | "lives" | "startTime"
+  "solution" | "puzzle" | "board" | "locked" | "errors" | "difficulty" | "lives" | "startTime" | "hints"
 >;

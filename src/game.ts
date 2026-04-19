@@ -5,7 +5,7 @@ import {
 } from './state';
 import {
   renderAll, renderCell, renderHighlights, renderLives,
-  renderNumpadCounts, shakeCell, popHeart, renderWins,
+  renderNumpadCounts, renderHintButton, shakeCell, popHeart, renderWins,
 } from './render';
 import { showScreen } from './ui';
 import { formatTime } from './utils';
@@ -14,7 +14,7 @@ import type { DifficultyKey } from './types';
 
 export function giveHint(): void {
   assertGameActive(state);
-  if (state.gameOver || state.won) return;
+  if (state.gameOver || state.won || state.hints <= 0) return;
   const empty = state.board.reduce<number[]>((acc, v, i) => {
     if (!v && !state.locked[i] && !state.errors[i]) acc.push(i);
     return acc;
@@ -24,9 +24,11 @@ export function giveHint(): void {
   state.board[idx] = state.solution[idx];
   state.errors[idx] = false;
   state.selected = idx;
+  state.hints--;
   renderCell(idx);
   renderHighlights();
   renderNumpadCounts();
+  renderHintButton();
   if (checkWin()) {
     state.won = true;
     clearState();
@@ -113,6 +115,7 @@ export function startGame(difficulty: DifficultyKey): void {
   state.locked     = state.puzzle.map(v => v !== 0);
   state.errors     = new Array<boolean>(81).fill(false);
   state.lives      = MAX_LIVES;
+  state.hints      = 3;
   state.selected   = -1;
   state.gameOver   = false;
   state.won        = false;

@@ -373,6 +373,22 @@ body {
 .numpad-btn.hint {
   grid-column: 3;
   font-size: calc(var(--cell-size) * 0.42);
+  position: relative;
+}
+
+.numpad-btn.hint:disabled {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.hint-count {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
 }
 
 /* ─── Overlay Screens ─────────────────────────────────── */

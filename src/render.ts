@@ -34,6 +34,7 @@ export function renderAll(): void {
   renderLives();
   renderHighlights();
   renderNumpadCounts();
+  renderHintButton();
   renderWins();
 }
 
@@ -111,6 +112,16 @@ export function renderTimer(): void {
   if (!el) return;
   if (!state.startTime || state.gameOver || state.won) return;
   el.textContent = `🕐 ${formatTime(Date.now() - state.startTime)}`;
+}
+
+export function renderHintButton(): void {
+  assertGameActive(state);
+  const btn = document.querySelector<HTMLButtonElement>(".numpad-btn.hint");
+  if (!btn) return;
+  const badge = btn.querySelector<HTMLSpanElement>(".hint-count");
+  const remaining = state.hints;
+  btn.disabled = remaining === 0;
+  if (badge) badge.textContent = remaining > 0 ? String(remaining) : "";
 }
 
 export function shakeCell(idx: number): void {
