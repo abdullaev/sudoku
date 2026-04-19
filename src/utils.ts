@@ -10,9 +10,7 @@ export function formatTime(ms: number): string {
   const s = Math.floor(ms / 1000);
   const m = Math.floor(s / 60);
   const sec = s % 60;
-  return m > 0
-    ? `${m}m ${sec.toString().padStart(2, '0')}s`
-    : `${sec}s`;
+  return `${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
 }
 
 export function getEl<T extends HTMLElement>(id: string): T {
