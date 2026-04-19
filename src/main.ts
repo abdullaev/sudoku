@@ -1,7 +1,7 @@
 import { buildNumpad, scheduleNextHeart } from './ui';
 import { initEvents } from './events';
 import { state, loadState } from './state';
-import { renderAll, renderCell } from './render';
+import { renderAll, renderCell, renderWins } from './render';
 import { initDebug } from './debug';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initEvents();
   scheduleNextHeart();
   initDebug();
+  renderWins();
   if (loadState()) {
     renderAll();
     for (let i = 0; i < 81; i++) {

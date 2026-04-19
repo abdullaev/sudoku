@@ -114,6 +114,20 @@ body {
   transform: scale(0.97);
 }
 
+.btn-difficulty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.win-count {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #aaa;
+  min-width: 1ch;
+  text-align: right;
+}
+
 /* ─── Game Header ─────────────────────────────────────── */
 
 .game-header {
@@ -157,12 +171,24 @@ body {
   }
 }
 
+.difficulty-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
 .difficulty-label {
   font-size: 0.9rem;
   font-weight: 600;
   color: #888;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.game-wins {
+  font-size: 0.75rem;
+  color: #bbb;
 }
 
 .btn-new {

@@ -20,9 +20,15 @@
         <h1 class="logo">Sudoku</h1>
         <p class="tagline">Choose difficulty</p>
         <div class="difficulty-buttons">
-          <button class="btn-difficulty" data-difficulty="easy">Easy</button>
-          <button class="btn-difficulty" data-difficulty="medium">Medium</button>
-          <button class="btn-difficulty" data-difficulty="hard">Hard</button>
+          <button class="btn-difficulty" data-difficulty="easy">
+            <span>Easy</span><span class="win-count" id="wins-easy">🏆 0</span>
+          </button>
+          <button class="btn-difficulty" data-difficulty="medium">
+            <span>Medium</span><span class="win-count" id="wins-medium">🏆 0</span>
+          </button>
+          <button class="btn-difficulty" data-difficulty="hard">
+            <span>Hard</span><span class="win-count" id="wins-hard">🏆 0</span>
+          </button>
         </div>
       </div>
     </div>
@@ -35,8 +41,11 @@
           <span class="heart" data-life="2">&#9829;</span>
           <span class="heart" data-life="3">&#9829;</span>
         </div>
-        <span class="difficulty-label" id="difficulty-label"></span>
-        <button class="btn-new" id="btn-new-game">New</button>
+        <div class="difficulty-info">
+          <span class="difficulty-label" id="difficulty-label"></span>
+          <span class="game-wins" id="game-wins"></span>
+        </div>
+        <button class="btn-new" id="btn-new-game">NEW</button>
       </header>
 
       <div class="board" id="board" role="grid" aria-label="Sudoku board"></div>

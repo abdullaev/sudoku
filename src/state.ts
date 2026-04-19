@@ -1,5 +1,5 @@
 import { MAX_LIVES } from './constants';
-import type { DifficultyKey, GameState, PersistedState } from './types';
+import type { DifficultyKey, GameState, PersistedState, WinsData } from './types';
 
 export const state: GameState = {
   solution:   null,
@@ -59,6 +59,26 @@ export function loadState(): boolean {
 
 export function clearState(): void {
   localStorage.removeItem('sudoku_state');
+}
+
+export function getWins(): WinsData {
+  const raw = localStorage.getItem('sudoku_wins');
+  const defaults: WinsData = { easy: 0, medium: 0, hard: 0 };
+  if (!raw) return defaults;
+  try {
+    const p = JSON.parse(raw) as Record<string, unknown>;
+    return {
+      easy:   typeof p.easy   === 'number' ? p.easy   : 0,
+      medium: typeof p.medium === 'number' ? p.medium : 0,
+      hard:   typeof p.hard   === 'number' ? p.hard   : 0,
+    };
+  } catch { return defaults; }
+}
+
+export function recordWin(difficulty: DifficultyKey): void {
+  const wins = getWins();
+  wins[difficulty]++;
+  localStorage.setItem('sudoku_wins', JSON.stringify(wins));
 }
 
 export function initState(difficulty: DifficultyKey): void {

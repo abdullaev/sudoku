@@ -6,6 +6,8 @@ export interface DifficultyConfig {
 
 export type DifficultyMap = Record<DifficultyKey, DifficultyConfig>;
 
+export type WinsData = Record<DifficultyKey, number>;
+
 export interface GameState {
   solution: number[] | null;
   puzzle: number[] | null;

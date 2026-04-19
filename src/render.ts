@@ -1,5 +1,6 @@
-import { state, assertGameActive } from './state';
+import { state, assertGameActive, getWins } from './state';
 import { getEl } from './utils';
+import type { DifficultyKey } from './types';
 
 export function renderAll(): void {
   assertGameActive(state);
@@ -27,6 +28,7 @@ export function renderAll(): void {
   renderLives();
   renderHighlights();
   renderNumpadCounts();
+  renderWins();
 }
 
 export function renderCell(idx: number): void {
@@ -84,6 +86,18 @@ export function renderNumpadCounts(): void {
     const n = Number(btn.dataset.num ?? '0');
     if (n > 0) btn.classList.toggle('complete', counts[n] >= 9);
   });
+}
+
+export function renderWins(): void {
+  const wins = getWins();
+  (['easy', 'medium', 'hard'] as DifficultyKey[]).forEach(d => {
+    const el = document.getElementById(`wins-${d}`);
+    if (el) el.textContent = `🏆 ${wins[d]}`;
+  });
+  const gameWinsEl = document.getElementById('game-wins');
+  if (gameWinsEl && state.board) {
+    gameWinsEl.textContent = `🏆 ${wins[state.difficulty]}`;
+  }
 }
 
 export function shakeCell(idx: number): void {

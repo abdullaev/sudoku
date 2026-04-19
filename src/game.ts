@@ -1,11 +1,11 @@
 import { MAX_LIVES } from './constants';
 import { generateSolution, createPuzzle } from './engine';
 import {
-  state, saveState, clearState, assertGameActive,
+  state, saveState, clearState, assertGameActive, recordWin,
 } from './state';
 import {
   renderAll, renderCell, renderHighlights, renderLives,
-  renderNumpadCounts, shakeCell, popHeart,
+  renderNumpadCounts, shakeCell, popHeart, renderWins,
 } from './render';
 import { showScreen } from './ui';
 import { formatTime } from './utils';
@@ -71,6 +71,8 @@ export function checkWin(): boolean {
 
 export function triggerVictory(): void {
   assertGameActive(state);
+  recordWin(state.difficulty);
+  renderWins();
   const elapsed = Date.now() - state.startTime;
   const el = document.getElementById('victory-time');
   if (el) el.textContent = `Solved in ${formatTime(elapsed)}`;
