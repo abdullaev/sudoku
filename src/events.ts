@@ -1,5 +1,5 @@
 import { state, clearState } from "./state";
-import { startGame, selectCell, handleInput, giveHint } from "./game";
+import { startGame, selectCell, handleInput, giveHint, toggleNoteMode } from "./game";
 import { showScreen } from "./ui";
 
 export function initEvents(): void {
@@ -21,6 +21,8 @@ export function initEvents(): void {
     if (!btn) return;
     if (btn.dataset.hint) {
       giveHint();
+    } else if (btn.dataset.note) {
+      toggleNoteMode();
     } else {
       handleInput(Number(btn.dataset.num ?? "0"));
     }
@@ -33,6 +35,8 @@ export function initEvents(): void {
       handleInput(Number(e.key));
     } else if (e.key === "Backspace" || e.key === "Delete" || e.key === "0") {
       handleInput(0);
+    } else if (e.key === "n" || e.key === "N") {
+      toggleNoteMode();
     } else if (e.key === "ArrowUp") {
       if (state.selected >= 9) selectCell(state.selected - 9);
     } else if (e.key === "ArrowDown") {

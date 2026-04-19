@@ -29,6 +29,14 @@ export function buildNumpad(): void {
   erase.setAttribute("aria-label", "Erase");
   pad.appendChild(erase);
 
+  const note = document.createElement("button");
+  note.className = "numpad-btn note";
+  note.dataset.note = "1";
+  note.setAttribute("aria-label", "Toggle note mode");
+  note.setAttribute("aria-pressed", "false");
+  note.textContent = "✏️";
+  pad.appendChild(note);
+
   const hint = document.createElement("button");
   hint.className = "numpad-btn hint";
   hint.dataset.hint = "1";

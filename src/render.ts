@@ -18,14 +18,12 @@ export function renderAll(): void {
     if (state.locked[i]) {
       cell.classList.add("locked");
       cell.textContent = String(state.puzzle[i]);
-    } else {
-      if (state.board[i]) {
-        cell.textContent = String(state.board[i]);
-        cell.classList.toggle("error", state.errors[i]);
-        cell.classList.toggle("player", !state.errors[i]);
-      }
     }
     boardEl.appendChild(cell);
+  }
+
+  for (let i = 0; i < 81; i++) {
+    if (!state.locked[i]) renderCell(i);
   }
 
   getEl<HTMLSpanElement>("difficulty-label").textContent =
@@ -35,17 +33,50 @@ export function renderAll(): void {
   renderHighlights();
   renderNumpadCounts();
   renderHintButton();
+  renderNoteButton();
   renderWins();
 }
 
 export function renderCell(idx: number): void {
   assertGameActive(state);
-  const { board, errors, locked } = state;
+  const { board, errors, locked, notes } = state;
   const el = document.querySelector<HTMLDivElement>(`.cell[data-idx="${idx}"]`);
-  if (!el) return;
-  el.textContent = board[idx] ? String(board[idx]) : "";
-  el.classList.toggle("error", errors[idx]);
-  el.classList.toggle("player", !locked[idx] && board[idx] !== 0 && !errors[idx]);
+  if (!el || locked[idx]) return;
+
+  if (board[idx] !== 0) {
+    el.textContent = String(board[idx]);
+    el.classList.toggle("error", errors[idx]);
+    el.classList.toggle("player", !errors[idx]);
+    return;
+  }
+
+  el.classList.remove("error", "player");
+  const cellNotes = notes[idx];
+
+  if (cellNotes.length === 0) {
+    el.innerHTML = "";
+    return;
+  }
+
+  let grid = el.querySelector<HTMLDivElement>(".notes-grid");
+  if (!grid) {
+    el.innerHTML = "";
+    grid = document.createElement("div");
+    grid.className = "notes-grid";
+    for (let n = 1; n <= 9; n++) {
+      const span = document.createElement("span");
+      span.className = "note-digit";
+      span.dataset.n = String(n);
+      span.textContent = String(n);
+      grid.appendChild(span);
+    }
+    el.appendChild(grid);
+  }
+
+  grid.querySelectorAll<HTMLSpanElement>(".note-digit").forEach((span) => {
+    const n = Number(span.dataset.n);
+    span.classList.toggle("note-visible", cellNotes.includes(n));
+  });
 }
 
 export function renderHighlights(): void {
@@ -69,9 +100,16 @@ export function renderHighlights(): void {
       el.classList.add("selected");
     } else if (selVal && board[idx] === selVal && !errors[idx]) {
       el.classList.add("same-num");
+    } else if (selVal && !board[idx] && state.notes[idx]?.includes(selVal)) {
+      el.classList.add("same-num");
     } else if (selRow !== -1 && (row === selRow || col === selCol || box === selBox)) {
       el.classList.add("related");
     }
+
+    el.querySelectorAll<HTMLSpanElement>(".note-digit").forEach((span) => {
+      const n = Number(span.dataset.n);
+      span.classList.toggle("note-highlight", Boolean(selVal) && n === selVal);
+    });
   });
 }
 
@@ -112,6 +150,13 @@ export function renderTimer(): void {
   if (!el) return;
   if (!state.startTime || state.gameOver || state.won) return;
   el.textContent = `🕐 ${formatTime(Date.now() - state.startTime)}`;
+}
+
+export function renderNoteButton(): void {
+  const btn = document.querySelector<HTMLButtonElement>(".numpad-btn.note");
+  if (!btn) return;
+  btn.classList.toggle("active", state.noteMode);
+  btn.setAttribute("aria-pressed", String(state.noteMode));
 }
 
 export function renderHintButton(): void {

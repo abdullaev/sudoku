@@ -21,9 +21,11 @@ export interface GameState {
   won: boolean;
   startTime: number | null;
   hints: number;
+  notes: number[][];
+  noteMode: boolean;
 }
 
 export type PersistedState = Pick<
   GameState,
-  "solution" | "puzzle" | "board" | "locked" | "errors" | "difficulty" | "lives" | "startTime" | "hints"
+  "solution" | "puzzle" | "board" | "locked" | "errors" | "difficulty" | "lives" | "startTime" | "hints" | "notes"
 >;
