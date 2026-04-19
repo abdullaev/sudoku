@@ -3,6 +3,9 @@ import { startGame, selectCell, handleInput, giveHint, toggleNoteMode } from "./
 import { showScreen } from "./ui";
 
 export function initEvents(): void {
+  // Required for :active to fire on touch in iOS Safari
+  document.addEventListener("touchstart", () => {}, { passive: true });
+
   document.querySelectorAll<HTMLButtonElement>(".btn-difficulty").forEach((btn) => {
     btn.addEventListener("click", () => {
       const d = btn.dataset.difficulty;

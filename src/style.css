@@ -220,6 +220,11 @@ body {
   cursor: pointer;
   touch-action: manipulation;
   text-transform: uppercase;
+  transition: transform 0.08s;
+}
+
+.btn-new:active {
+  transform: scale(0.93);
 }
 
 /* ─── Board ───────────────────────────────────────────── */
@@ -519,6 +524,11 @@ body {
   font-weight: 600;
   cursor: pointer;
   touch-action: manipulation;
+  transition: transform 0.08s;
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
 }
 
 /* ─── Debug ───────────────────────────────────────────── */
