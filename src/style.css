@@ -209,7 +209,6 @@ body {
   color: var(--accent);
   cursor: pointer;
   touch-action: manipulation;
-  padding: 4px 8px;
   text-transform: uppercase;
 }
 
