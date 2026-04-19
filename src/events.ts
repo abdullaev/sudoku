@@ -1,5 +1,5 @@
 import { state, clearState } from "./state";
-import { startGame, selectCell, handleInput } from "./game";
+import { startGame, selectCell, handleInput, giveHint } from "./game";
 import { showScreen } from "./ui";
 
 export function initEvents(): void {
@@ -19,7 +19,11 @@ export function initEvents(): void {
   document.getElementById("numpad")?.addEventListener("click", (e) => {
     const btn = (e.target as Element).closest<HTMLElement>(".numpad-btn");
     if (!btn) return;
-    handleInput(Number(btn.dataset.num ?? "0"));
+    if (btn.dataset.hint) {
+      giveHint();
+    } else {
+      handleInput(Number(btn.dataset.num ?? "0"));
+    }
   });
 
   document.addEventListener("keydown", (e) => {

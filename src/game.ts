@@ -12,6 +12,30 @@ import { formatTime } from './utils';
 import { startFireworks } from './fireworks';
 import type { DifficultyKey } from './types';
 
+export function giveHint(): void {
+  assertGameActive(state);
+  if (state.gameOver || state.won) return;
+  const empty = state.board.reduce<number[]>((acc, v, i) => {
+    if (!v && !state.locked[i] && !state.errors[i]) acc.push(i);
+    return acc;
+  }, []);
+  if (empty.length === 0) return;
+  const idx = empty[Math.floor(Math.random() * empty.length)];
+  state.board[idx] = state.solution[idx];
+  state.errors[idx] = false;
+  state.selected = idx;
+  renderCell(idx);
+  renderHighlights();
+  renderNumpadCounts();
+  if (checkWin()) {
+    state.won = true;
+    clearState();
+    setTimeout(triggerVictory, 400);
+    return;
+  }
+  saveState();
+}
+
 export function selectCell(idx: number): void {
   state.selected = idx;
   renderHighlights();

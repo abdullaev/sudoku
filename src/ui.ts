@@ -28,6 +28,13 @@ export function buildNumpad(): void {
   erase.textContent = "⌫";
   erase.setAttribute("aria-label", "Erase");
   pad.appendChild(erase);
+
+  const hint = document.createElement("button");
+  hint.className = "numpad-btn hint";
+  hint.dataset.hint = "1";
+  hint.textContent = "💡";
+  hint.setAttribute("aria-label", "Hint");
+  pad.appendChild(hint);
 }
 
 export function spawnHeart(): void {

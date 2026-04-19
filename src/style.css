@@ -12,14 +12,24 @@
   --border: #e0ddd8;
   --border-box: #9a9490;
   --text-primary: #1a1a1a;
+  --text-on-accent: #fff;
+  --text-muted: #888;
+  --text-faint: #bbb;
   --text-player: #3a6ea5;
   --text-error: #d94f4f;
   --accent: #3a6ea5;
   --accent-light: #dce8f5;
   --related: #eeecea;
   --same-num: #d6e6f5;
+  --error-bg: #fdf0f0;
+  --success: #3b9e6e;
   --heart-active: #d94f4f;
   --heart-lost: #d8d5d0;
+  --overlay-bg: rgba(0, 0, 0, 0.45);
+  --shadow-board: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --shadow-btn: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-overlay: 0 4px 24px rgba(0, 0, 0, 0.1);
+  --debug-bg: rgba(255, 100, 0, 0.85);
   --cell-size: min(10.2vw, 52px);
   --board-size: calc(9 * var(--cell-size));
   --radius: 12px;
@@ -77,7 +87,7 @@ body {
 
 .tagline {
   font-size: 1rem;
-  color: #888;
+  color: var(--text-muted);
   font-weight: 400;
 }
 
@@ -102,7 +112,7 @@ body {
   cursor: pointer;
   touch-action: manipulation;
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.08),
+    var(--shadow-btn),
     0 0 0 1.5px var(--border);
   transition:
     background 0.12s,
@@ -123,7 +133,7 @@ body {
 .win-count {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #aaa;
+  color: var(--text-faint);
   min-width: 1ch;
   text-align: right;
 }
@@ -183,18 +193,18 @@ body {
 .difficulty-label {
   font-size: 1rem;
   font-weight: 600;
-  color: #888;
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 
 .game-wins {
   font-size: 1rem;
-  color: #bbb;
+  color: var(--text-faint);
 }
 
 .game-timer {
   font-size: 1rem;
-  color: #bbb;
+  color: var(--text-faint);
   min-width: 4.5em;
   text-align: right;
   font-variant-numeric: tabular-nums;
@@ -221,7 +231,7 @@ body {
   border: 2px solid var(--border-box);
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  box-shadow: var(--shadow-board);
   background: var(--surface);
 }
 
@@ -276,7 +286,7 @@ body {
 
 .cell.error {
   color: var(--text-error);
-  background: #fdf0f0;
+  background: var(--error-bg);
 }
 
 .cell.selected {
@@ -338,7 +348,7 @@ body {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.08),
+    var(--shadow-btn),
     0 0 0 1.5px var(--border);
   transition:
     background 0.1s,
@@ -360,6 +370,11 @@ body {
   pointer-events: none;
 }
 
+.numpad-btn.hint {
+  grid-column: 3;
+  font-size: calc(var(--cell-size) * 0.42);
+}
+
 /* ─── Overlay Screens ─────────────────────────────────── */
 
 #screen-gameover,
@@ -369,7 +384,7 @@ body {
   z-index: 100;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.45);
+  background: var(--overlay-bg);
   max-width: none;
   padding: 0;
 }
@@ -384,7 +399,7 @@ body {
   padding: 40px 32px;
   width: 100%;
   max-width: 300px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-overlay);
   text-align: center;
 }
 
@@ -397,7 +412,7 @@ body {
   color: var(--text-error);
 }
 .overlay-icon.win {
-  color: #3b9e6e;
+  color: var(--success);
 }
 
 .overlay-card h2 {
@@ -407,7 +422,7 @@ body {
 
 .overlay-sub {
   font-size: 0.9rem;
-  color: #888;
+  color: var(--text-muted);
   margin-bottom: 6px;
 }
 
@@ -417,7 +432,7 @@ body {
   border: none;
   border-radius: var(--radius);
   background: var(--accent);
-  color: #fff;
+  color: var(--text-on-accent);
   font-family: var(--font);
   font-size: 1rem;
   font-weight: 600;
@@ -455,8 +470,8 @@ body {
   left: 12px;
   z-index: 1000;
   padding: 6px 12px;
-  background: rgba(255, 100, 0, 0.85);
-  color: #fff;
+  background: var(--debug-bg);
+  color: var(--text-on-accent);
   border: none;
   border-radius: 6px;
   font-size: 0.75rem;

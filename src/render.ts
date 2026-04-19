@@ -18,6 +18,12 @@ export function renderAll(): void {
     if (state.locked[i]) {
       cell.classList.add("locked");
       cell.textContent = String(state.puzzle[i]);
+    } else {
+      if (state.board[i]) {
+        cell.textContent = String(state.board[i]);
+        cell.classList.toggle("error", state.errors[i]);
+        cell.classList.toggle("player", !state.errors[i]);
+      }
     }
     boardEl.appendChild(cell);
   }
