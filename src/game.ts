@@ -12,6 +12,32 @@ import { formatTime } from './utils';
 import { startFireworks } from './fireworks';
 import type { DifficultyKey } from './types';
 
+function getPeers(idx: number): number[] {
+  const row = Math.floor(idx / 9);
+  const col = idx % 9;
+  const boxRow = Math.floor(row / 3) * 3;
+  const boxCol = Math.floor(col / 3) * 3;
+  const peers = new Set<number>();
+  for (let c = 0; c < 9; c++) peers.add(row * 9 + c);
+  for (let r = 0; r < 9; r++) peers.add(r * 9 + col);
+  for (let r = 0; r < 3; r++)
+    for (let c = 0; c < 3; c++)
+      peers.add((boxRow + r) * 9 + (boxCol + c));
+  peers.delete(idx);
+  return [...peers];
+}
+
+function clearNoteFromPeers(idx: number, num: number): void {
+  for (const peer of getPeers(idx)) {
+    const notes = state.notes[peer];
+    const pos = notes.indexOf(num);
+    if (pos !== -1) {
+      notes.splice(pos, 1);
+      renderCell(peer);
+    }
+  }
+}
+
 export function giveHint(): void {
   assertGameActive(state);
   if (state.gameOver || state.won || state.hints <= 0) return;
@@ -27,6 +53,7 @@ export function giveHint(): void {
   state.errors[idx] = false;
   state.selected = idx;
   state.hints--;
+  clearNoteFromPeers(idx, solution[idx]);
   renderCell(idx);
   renderHighlights();
   renderNumpadCounts();
@@ -98,6 +125,7 @@ export function handleInput(num: number): void {
     }
   } else {
     state.errors[idx] = false;
+    clearNoteFromPeers(idx, num);
     renderCell(idx);
     if (checkWin()) {
       state.won = true;
